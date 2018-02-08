@@ -1,0 +1,6 @@
+[package]
+name = "line"
+version = "0.1.0"
+authors = ["Jonathan Wong <18wongj@gmail.com>"]
+
+[dependencies]
