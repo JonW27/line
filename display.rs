@@ -24,7 +24,7 @@ pub fn new_screen(width : i64, height : i64) -> Vec<Vec<[i64; 3]>>{
     return screen;
 }
 
-pub fn plot( mut screen : Vec<Vec<[i64; 3]>>, color : [i64; 3], x : i64, y : i64){
+pub fn plot( screen : &mut Vec<Vec<[i64; 3]>>, color : [i64; 3], x : i64, y : i64){
     let newy : i64 = YRES - 1 - y;
     if x >= 0 &&  x < XRES && newy >= 0 && newy < YRES {
         let ny = newy as usize;
@@ -47,7 +47,7 @@ pub fn clear_screen( mut screen : Vec<Vec<[i64; 3]>> ){
     }
 }
 
-pub fn save_ppm( screen : Vec<Vec<[i64; 3]>>, fname : String<>){
+pub fn save_ppm( screen : &mut Vec<Vec<[i64; 3]>>, fname : String<>){
     let mut pic = File::create(fname).expect("File could not be created. Check to see if name already taken.");
     let mut ppm  = "P3 \n500 500 \n255\n".to_string();
     for y in 0..screen.len() {
@@ -58,6 +58,7 @@ pub fn save_ppm( screen : Vec<Vec<[i64; 3]>>, fname : String<>){
             let pixel = screen[ny][nx];
             let rgb = pixel[RED].to_string() + " " + &pixel[GREEN].to_string() + " " + &pixel[BLUE].to_string();
             row.push_str(&rgb);
+            row.push_str(" ");
         }
         ppm.push_str(&row);
         ppm.push_str("\n");
